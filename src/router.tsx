@@ -11,10 +11,7 @@ export const Router = () => {
       <Routes>
         <Route path="/" element={<Inicio />} />
         <Route path="/userId/:username" element={<Perfil />} />
-        <Route
-          path="*"
-          element={<div>Erro 404 - Página não encontrada.</div>}
-        />
+        <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
   );

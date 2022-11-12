@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
-import { PerfilContainer } from "./Perfil.styled";
+import { PerfilContainer, BoxContainerBack } from "./Perfil.styled";
 import { SlNote } from "react-icons/sl";
 import { FiMapPin } from "react-icons/fi";
 import { MdPersonAddAlt } from "react-icons/md";
 import { MdPersonAdd } from "react-icons/md";
 import { CardRepo } from "../../components/CardRepo/CardRepo";
 import { useParams } from "react-router-dom";
+import { BiArrowBack } from "react-icons/bi";
 import GetRepos from "../../services/getRepos";
 import Loading from "../../components/Loading/Loading";
 import Error from "../error";
+import { Link } from "react-router-dom";
+import foto from "../../assets/foto.png";
 
 function Perfil() {
   const [erro, setErro] = useState<boolean>(false);
@@ -30,7 +33,7 @@ function Perfil() {
         }, 1000);
       });
     }
-  }, []);
+  }, [username]);
 
   if (loading) {
     return <Loading />;
@@ -41,6 +44,11 @@ function Perfil() {
       <>
         <PerfilContainer>
           <div className="box-1">
+            <BoxContainerBack>
+              <Link to={"/"}>
+                <BiArrowBack color="#fff" size={35} />
+              </Link>
+            </BoxContainerBack>
             <div className="box-item">
               <p>Nome</p>
               <h2>{data.profile.login}</h2>
@@ -77,7 +85,8 @@ function Perfil() {
             </div>
             <div className="box-item">
               <img
-                src={data.profile.avatar_url}
+                id="perfil"
+                src={data.profile.avatar_url ? data.profile.avatar_url : foto}
                 alt="foto de perfil"
                 style={{ borderRadius: 100 }}
               />
@@ -87,7 +96,7 @@ function Perfil() {
             <h2>Respositórios</h2>
             <div className="item">
               {data.repos.map((item: any) => (
-                <CardRepo {...item} />
+                <CardRepo key={item.id} {...item} />
               ))}
             </div>
           </div>
