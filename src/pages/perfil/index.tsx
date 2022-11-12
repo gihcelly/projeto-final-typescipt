@@ -8,8 +8,10 @@ import { CardRepo } from "../../components/CardRepo/CardRepo";
 import { useParams } from "react-router-dom";
 import GetRepos from "../../services/getRepos";
 import Loading from "../../components/Loading/Loading";
+import Error from "../error";
 
 function Perfil() {
+  const [erro, setErro] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<any>(null);
   const { username } = useParams();
@@ -18,7 +20,9 @@ function Perfil() {
     document.title = `Perfil`;
     if (username) {
       GetRepos(username).then((response) => {
-        setData(response);
+        if (response) {
+          setData(response);
+        } else setErro(true);
 
         //pra n ficar muito estranho
         setTimeout(() => {
@@ -30,6 +34,8 @@ function Perfil() {
 
   if (loading) {
     return <Loading />;
+  } else if (erro) {
+    return <Error />;
   } else {
     return (
       <>
