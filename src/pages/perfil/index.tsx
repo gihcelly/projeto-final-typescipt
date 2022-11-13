@@ -13,11 +13,16 @@ import Error from "../error";
 import { Link } from "react-router-dom";
 import foto from "../../assets/foto.png";
 
-function Perfil() {
+interface IProps {
+  profile?: string;
+}
+
+function Perfil({ profile }: IProps) {
   const [erro, setErro] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<any>(null);
-  const { username } = useParams();
+  let { username } = useParams();
+  if (profile) username = profile;
 
   useEffect(() => {
     document.title = `Perfil`;
@@ -36,13 +41,13 @@ function Perfil() {
   }, [username]);
 
   if (loading) {
-    return <Loading />;
+    return <Loading data-testid="loading" />;
   } else if (erro) {
     return <Error />;
   } else {
     return (
       <>
-        <PerfilContainer>
+        <PerfilContainer data-testid="page">
           <div className="box-1">
             <BoxContainerBack>
               <Link to={"/"}>

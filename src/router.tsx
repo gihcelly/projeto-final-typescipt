@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Inicio from "./pages/inicio";
 import Perfil from "./pages/perfil";
 import Error from "./pages/error";
