@@ -29,6 +29,7 @@ export const PerfilContainer = styled.div`
     h2 {
       color: #68e7e7;
       font-size: 48px;
+      margin-bottom: 20px;
     }
     p {
       color: #ffff;
